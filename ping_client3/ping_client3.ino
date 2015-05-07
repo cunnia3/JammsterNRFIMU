@@ -119,8 +119,10 @@ void loop(){
   
   Mirf.getData((byte *) &time2);
   
-  Serial.print("Data: ");
-  Serial.println((time2));
+  //Serial.print("Data: ");
+  //Serial.println((time2));
+  Serial.println(IMU1[0]);
+  
   
   delay(1000);
 } 
