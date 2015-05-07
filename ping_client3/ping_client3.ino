@@ -21,6 +21,13 @@
 #include <nRF24L01.h>
 #include <MirfHardwareSpiDriver.h>
 
+#include <Wire.h>
+
+char SMPLRT_DIV= 0x19;
+char itgAddress = 0x68;
+int IMU1[7] = {0,0,0,0,0,0,0};
+int IMU1_old =0;
+
 void setup(){
   Serial.begin(9600);
   /*
@@ -33,7 +40,19 @@ void setup(){
    * Mirf.cePin = 7;
    */
  
- 
+   //Initialize the I2C communication. This will set the Arduino up as the 'Master' device.
+  //                                sensor innitionalizothin
+  Wire.begin();  
+  //set the power mangment to start to wake up the chip
+  itgWrite(itgAddress, 0x6B, 0x00);
+  //Set the sample rate to 8KHz
+  itgWrite(itgAddress, SMPLRT_DIV, 0x11);
+  //low pass filter set
+  itgWrite(itgAddress,0x1A , 0x00);
+  //gyro full sclae range 2000deg/s
+  itgWrite(itgAddress,0x1B , 0x18);
+  //accel full sclae range 8g
+  itgWrite(itgAddress,0x1C , 0x10);
  
   
   Mirf.spi = &MirfHardwareSpi;
@@ -102,6 +121,40 @@ void loop(){
   
   delay(1000);
 } 
+
+
+
+void itgWrite(char address, char registerAddress, char data)
+{
+  //Initiate a communication sequence with the desired i2c device
+  Wire.beginTransmission(address);
+  //Tell the I2C address which register we are writing to
+  Wire.write(registerAddress);
+  //Send the value to write to the specified register
+  Wire.write(data);
+  //End the communication sequence
+  Wire.endTransmission();
+}
+
+
+
+void Read_ac_gy_t()
+{
+  Wire.beginTransmission(0x68);
+  Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
+  Wire.endTransmission(false);
+  Wire.requestFrom(0x68,14,true);
+  IMU1[0]=Wire.read()<<8|Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)    
+  IMU1[1]=Wire.read()<<8|Wire.read();  // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
+  IMU1[2]=Wire.read()<<8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
+  IMU1[6]=Wire.read()<<8|Wire.read();  // 0x41 (TEMP_OUT_H) & 0x42 (TEMP_OUT_L)
+  IMU1[3]=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
+  IMU1[4]=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
+  IMU1[5]=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
+  Wire.endTransmission();
+  
+}
+
   
   
   
