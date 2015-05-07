@@ -75,7 +75,7 @@ void setup(){
    * NB: payload on client and server must be the same.
    */
    
-  Mirf.payload = sizeof(unsigned long);
+  Mirf.payload = sizeof(int);
   
   /*
    * Write channel and payload config then power up reciver.
@@ -100,8 +100,8 @@ void loop(){
   
   unsigned long time = millis();
   
-  unsigned long data = 100;
-  unsigned long data2 = 0;
+  int data = IMU1[0];
+  int data2 = 0;
   
   
   Mirf.setTADDR((byte *)"serv1");
@@ -125,7 +125,7 @@ void loop(){
   Serial.println((data2));
   
   
-  delay(1000);
+  delay(100);
 } 
 
 

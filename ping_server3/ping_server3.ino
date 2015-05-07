@@ -51,7 +51,7 @@ void setup(){
    * NB: payload on client and server must be the same.
    */
    
-  Mirf.payload = sizeof(unsigned long);
+  Mirf.payload = sizeof(int);
   
   /*
    * Write channel and payload config then power up reciver.
