@@ -18,6 +18,9 @@
 #include <nRF24L01.h>
 #include <MirfHardwareSpiDriver.h>
 
+int IMU1[7] = {0,0,0,0,0,0,0};
+
+
 void setup(){
   Serial.begin(9600);
   
@@ -77,7 +80,6 @@ void loop(){
    */
    
   if(!Mirf.isSending() && Mirf.dataReady()){
-    Serial.println("Got packet");
     
     /*
      * Get load the packet into the buffer.
@@ -96,14 +98,21 @@ void loop(){
      * Send the data back to the client.
      */
      
-    Mirf.send(data);
+     byteAToIntA(data, IMU1);
+     
+     Serial.print((IMU1[0]));
+     Serial.print(" ");
+     Serial.println((IMU1[1]));
+  
     
-    /*
-     * Wait untill sending has finished
-     *
-     * NB: isSending returns the chip to receving after returning true.
-     */
-      
-    Serial.println("Reply sent.");
+  }
+}
+
+// Fill an int array with the contents of a byte array
+// assume that the size of the int array is 7
+// and that the size of the byte array is 14
+void byteAToIntA(byte bArray[], int iArray[]){
+  for(int i =0; i < 7; i++){
+   iArray[i] = bArray[2*i] | bArray[(2*i)+1] << 8; 
   }
 }

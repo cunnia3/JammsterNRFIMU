@@ -26,7 +26,6 @@
 char SMPLRT_DIV= 0x19;
 char itgAddress = 0x68;
 int IMU1[7] = {0,0,0,0,0,0,0};
-int IMU1_old =0;
 
 void setup(){
   Serial.begin(9600);
@@ -96,12 +95,7 @@ void setup(){
 
 void loop(){
   
-  Read_ac_gy_t();
-  
-  unsigned long time = millis();
-  
-  int data2[7];
-  
+  Read_ac_gy_t();  
   
   Mirf.setTADDR((byte *)"serv1");
   
@@ -109,23 +103,11 @@ void loop(){
   
   while(Mirf.isSending()){
   }
-  Serial.println("Finished sending");
-  delay(10);
-  while(!Mirf.dataReady()){
-    //Serial.println("Waiting");
-    if ( ( millis() - time ) > 1000 ) {
-      Serial.println("Timeout on response from server!");
-      return;
-    }
-  }
-  
-  Mirf.getData((byte *) &data2);
-  
-  Serial.print((data2[0]));
-  Serial.print(" ");
-  Serial.println((data2[1]));
-  
-  delay(100);
+
+
+  //Serial.print((data2[0]));
+  //Serial.print(" ");
+  //Serial.println((data2[1]));
 } 
 
 
