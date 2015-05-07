@@ -18,8 +18,8 @@
 #include <nRF24L01.h>
 #include <MirfHardwareSpiDriver.h>
 
-int IMU0[7] = {0,0,0,0,0,0,0};
 int IMU1[7] = {0,0,0,0,0,0,0};
+int IMU2[7] = {0,0,0,0,0,0,0};
 
 void setup(){
   Serial.begin(9600);
@@ -60,7 +60,6 @@ void setup(){
    * Write channel and payload config then power up reciver.
    */
    
-  Mirf.config();
   
   Serial.println("Listening..."); 
 }
@@ -74,6 +73,8 @@ void loop(){
   unsigned long time = millis();
   
   // READ THE FIRST IMU
+  Mirf.channel = 90;
+  Mirf.config();
   Mirf.setTADDR((byte *)"clie1");
   delay(10);
 
@@ -82,15 +83,18 @@ void loop(){
 
     Mirf.getData(data);
    
-    byteAToIntA(data, IMU0);
+    byteAToIntA(data, IMU1);
      
-    Serial.print((IMU0[0]));
+    Serial.print("IMU1: ");
+    Serial.print((IMU1[0]));
     Serial.print(" ");
-    Serial.println((IMU0[1]));
+    Serial.println((IMU1[1]));
   }
   
   
   // READ THE SECOND IMU
+  Mirf.channel = 91;
+  Mirf.config();
   Mirf.setTADDR((byte *)"clie2");
   delay(10);
   
@@ -99,11 +103,12 @@ void loop(){
 
     Mirf.getData(data);
    
-    byteAToIntA(data, IMU1);
+    byteAToIntA(data, IMU2);
      
-    Serial.print((IMU1[0]));
+    Serial.print("IMU2: ");
+    Serial.print((IMU2[0]));
     Serial.print(" ");
-    Serial.println((IMU1[1]));
+    Serial.println((IMU2[1]));
   }  
  
 }

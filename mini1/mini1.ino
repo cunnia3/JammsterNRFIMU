@@ -75,6 +75,7 @@ void setup(){
    */
    
   Mirf.payload = 14;
+  Mirf.channel = 90;
   
   /*
    * Write channel and payload config then power up reciver.
