@@ -95,6 +95,9 @@ void setup(){
 }
 
 void loop(){
+  
+  Read_ac_gy_t();
+  
   unsigned long time = 100;
   unsigned long time2 = 0;
   
