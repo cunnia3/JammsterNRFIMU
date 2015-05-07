@@ -18,8 +18,8 @@
 #include <nRF24L01.h>
 #include <MirfHardwareSpiDriver.h>
 
+int IMU0[7] = {0,0,0,0,0,0,0};
 int IMU1[7] = {0,0,0,0,0,0,0};
-
 
 void setup(){
   Serial.begin(9600);
@@ -69,43 +69,43 @@ void loop(){
   /*
    * A buffer to store the data.
    */
-   
   byte data[Mirf.payload];
   
-  /*
-   * If a packet has been recived.
-   *
-   * isSending also restores listening mode when it 
-   * transitions from true to false.
-   */
-   
-  if(!Mirf.isSending() && Mirf.dataReady()){
-    
-    /*
-     * Get load the packet into the buffer.
-     */
-     
-    Mirf.getData(data);
-    
-    /*
-     * Set the send address.
-     */
-     
-     
-    Mirf.setTADDR((byte *)"clie1");
-    
-    /*
-     * Send the data back to the client.
-     */
-     
-     byteAToIntA(data, IMU1);
-     
-     Serial.print((IMU1[0]));
-     Serial.print(" ");
-     Serial.println((IMU1[1]));
+  unsigned long time = millis();
   
-    
+  // READ THE FIRST IMU
+  Mirf.setTADDR((byte *)"clie1");
+  delay(10);
+
+  //read from the first sensor if data is ready
+  if(Mirf.dataReady()){
+
+    Mirf.getData(data);
+   
+    byteAToIntA(data, IMU0);
+     
+    Serial.print((IMU0[0]));
+    Serial.print(" ");
+    Serial.println((IMU0[1]));
   }
+  
+  
+  // READ THE SECOND IMU
+  Mirf.setTADDR((byte *)"clie2");
+  delay(10);
+  
+  //read from the second sensor if data is ready
+  if(Mirf.dataReady()){
+
+    Mirf.getData(data);
+   
+    byteAToIntA(data, IMU1);
+     
+    Serial.print((IMU1[0]));
+    Serial.print(" ");
+    Serial.println((IMU1[1]));
+  }  
+ 
 }
 
 // Fill an int array with the contents of a byte array
