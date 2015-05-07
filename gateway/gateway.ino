@@ -105,7 +105,7 @@ void loop(){
    
     byteAToIntA(data, IMU2);
      
-    Serial.print("IMU2: ");
+    Serial.print("IMU2:                          ");
     Serial.print((IMU2[0]));
     Serial.print(" ");
     Serial.println((IMU2[1]));

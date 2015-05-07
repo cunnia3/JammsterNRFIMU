@@ -65,7 +65,7 @@ void setup(){
    * Configure reciving address.
    */
    
-  Mirf.setRADDR((byte *)"clie1");
+  Mirf.setRADDR((byte *)"clie2");
   
   /*
    * Set the payload length to sizeof(unsigned long) the
@@ -75,6 +75,7 @@ void setup(){
    */
    
   Mirf.payload = 14;
+  Mirf.channel = 91;
   
   /*
    * Write channel and payload config then power up reciver.
