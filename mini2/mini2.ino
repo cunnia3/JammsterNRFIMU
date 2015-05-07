@@ -28,7 +28,7 @@ char itgAddress = 0x68;
 int IMU1[7] = {0,0,0,0,0,0,0};
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(57600);
   /*
    * Setup pins / SPI.
    */
