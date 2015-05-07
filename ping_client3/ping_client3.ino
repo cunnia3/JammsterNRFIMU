@@ -98,12 +98,15 @@ void loop(){
   
   Read_ac_gy_t();
   
-  unsigned long time = 100;
-  unsigned long time2 = 0;
+  unsigned long time = millis();
+  
+  unsigned long data = 100;
+  unsigned long data2 = 0;
+  
   
   Mirf.setTADDR((byte *)"serv1");
   
-  Mirf.send((byte *)&time);
+  Mirf.send((byte *)&data);
   
   while(Mirf.isSending()){
   }
@@ -117,11 +120,9 @@ void loop(){
     }
   }
   
-  Mirf.getData((byte *) &time2);
+  Mirf.getData((byte *) &data2);
   
-  //Serial.print("Data: ");
-  //Serial.println((time2));
-  Serial.println(IMU1[0]);
+  Serial.println((data2));
   
   
   delay(1000);
