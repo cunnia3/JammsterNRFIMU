@@ -9,11 +9,18 @@ import traceback
 import socket
 import time
 import sys
+import serial.tools.list_ports
 
 
 RRN = RR.RobotRaconteurNode.s
 
-serial_port_name="/dev/ttyACM3"
+serial_port_name=""
+
+# connect to the port that has an arduino connected (typically labelled ACMX)
+ports = list(serial.tools.list_ports.comports())
+for p in ports:
+    if "ACM" in p[1]:
+        serial_port_name= p[0]
 
 def get_open_port():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
