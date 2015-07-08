@@ -9,9 +9,9 @@ def main():
     t2 = RR.TcpTransport()
     RRN.RegisterTransport(t2)
 
-    myGateway = RRN.ConnectService('tcp://localhost:48416/arduinoIMU/arduinoIMUData')
+    myGateway = RRN.ConnectService('tcp://localhost:53869/arduinoIMU/arduinoIMUData')
 
-    print myGateway.IMU2_read() 
+    print myGateway.IMU1_read() 
 
     RRN.Shutdown()
   
