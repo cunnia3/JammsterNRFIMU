@@ -13,7 +13,7 @@ import sys
 
 RRN = RR.RobotRaconteurNode.s
 
-serial_port_name="/dev/ttyACM4"
+serial_port_name="/dev/ttyACM1"
 
 def get_open_port():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
