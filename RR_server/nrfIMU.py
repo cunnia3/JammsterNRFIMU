@@ -13,7 +13,7 @@ import sys
 
 RRN = RR.RobotRaconteurNode.s
 
-serial_port_name="/dev/ttyACM0"
+serial_port_name="/dev/ttyACM1"
 
 def get_open_port():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -35,8 +35,8 @@ class NrfImuInterface(object):
             self._serial.write(dat)
             raw = self._serial.read(size = 14)
             unConverted = struct.unpack( "hhhhhhh", raw )
-            converted = [unConverted[0]/409, unConverted[1]/4096,unConverted[2]/4096,unConverted[3]/16.4,unConverted[4]/16.4,unConverted[5]/16.4, unConverted[6]]
-            return unConverted
+            converted = [unConverted[0]/4096.0, unConverted[1]/4096.0,unConverted[2]/4096.0,unConverted[3]/16.4,unConverted[4]/16.4,unConverted[5]/16.4, unConverted[6]]
+            return converted
 
     def IMU2_read(self):
         with self._lock:
