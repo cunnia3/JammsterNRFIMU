@@ -4,7 +4,7 @@ option version 0.5
 
 object NrfImuInterface
   
-    function int16[] IMU1_read()
-    function int16[] IMU2_read()
+    function double[] IMU1_read()
+    function double[] IMU2_read()
 
 end object

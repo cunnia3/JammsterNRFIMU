@@ -106,9 +106,9 @@ void loop(){
   }
 
 
-  //Serial.print((data2[0]));
+  //Serial.print((IMU1[0]));
   //Serial.print(" ");
-  //Serial.println((data2[1]));
+  //Serial.println((IMU1[1]));
 } 
 
 

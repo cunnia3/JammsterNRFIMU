@@ -11,7 +11,7 @@ def main():
 
     myGateway = RRN.ConnectService('tcp://localhost:53869/arduinoIMU/arduinoIMUData')
 
-    print myGateway.IMU1_read() 
+    print myGateway.IMU2_read() 
 
     RRN.Shutdown()
   
