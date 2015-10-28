@@ -85,7 +85,7 @@ void loop(){
   Mirf.channel = 90;
   Mirf.config();
   Mirf.setTADDR((byte *)"clie1");
-  delay(5);
+  delay(2);
 
   //read from the first sensor if data is ready
   if(Mirf.dataReady()){
@@ -107,7 +107,7 @@ void loop(){
   Mirf.channel = 91;
   Mirf.config();
   Mirf.setTADDR((byte *)"clie2");
-  delay(5);
+  delay(2);
   
   //read from the second sensor if data is ready
   if(Mirf.dataReady()){
