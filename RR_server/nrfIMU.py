@@ -74,7 +74,7 @@ def main():
 
     RRN.RegisterServiceType(service_def)
     RRN.RegisterService("arduinoIMUData", "arduinoIMU.NrfImuInterface", myGateway)
-    print "Accepting commands on port: " + str(port)
+    print "Conect string: tcp://localhost:" + str(port) + "/arduinoIMU/arduinoIMUData"
     raw_input("Press any key to end")
 
     RRN.Shutdown()
